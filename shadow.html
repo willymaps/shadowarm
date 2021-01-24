@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Shadow Arm</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" rel="stylesheet" />
+<style>
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#mapHold {
+    position:relative;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+}
+
+#map {
+    position:absolute;
+    width:100%;
+	height:100%;
+	cursor: not-allowed !important;
+}
+
+#armHold {
+	position:absolute;
+	width:100%;
+	height:100%;
+	z-index:10;
+	pointer-events: none;
+	overflow:hidden;
+}
+
+#armRight {
+	position:absolute;
+	width:100%;
+}
+
+#armHold img {
+	position: absolute;
+	width:100%;
+    top: 250px;
+	left: 50%;
+	opacity:85%;
+}
+
+#righthandPoint {
+	visibility: visible;
+}
+
+#righthandOpen {
+	visibility: hidden;
+}
+
+@media (max-width: 1400px) {
+	#armRight {
+		width:200%;
+	}
+}
+</style>
+</head>
+<body>
+<div id="mapHold">
+	<div id="armHold">
+		<div id="armRight">
+			<img id="righthandPoint" src="./img/shadow_right.png">
+			<img id="righthandOpen" src="./img/shadow_right_open.png">
+		</div>
+	</div>
+    <div id="map"></div>
+</div>
+<script>
+document.getElementById('mapHold').addEventListener("mousemove", imgMove);
+document.getElementById('mapHold').addEventListener("touchstart", imgMove);
+
+mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGlhbS1kYXZpcyIsImEiOiJja2tiYWtvbWcwMmtzMnBvajh3M2kxZGRuIn0.GeROaHKn2Gbvsg1e8buJEw';
+const map = new mapboxgl.Map({
+	container: 'map',
+	style: 'mapbox://styles/mapbox/outdoors-v11',
+	center: [48.1, -20.5],
+	zoom: 4.2
+});
+
+function imgMove(e) {
+	let x = e.clientX + 'px';
+	let y = e.clientY + 'px';
+	setCoords(x, y);
+}
+
+function imgTouch(e) {
+	let touch = e.touches[0];
+	let x = touch.pageX + 'px';
+	let y = touch.pageY + 'px';
+	setCoords(x, y);
+}
+
+function setCoords(x, y) {
+	let point = document.getElementById("righthandPoint");
+	let open = document.getElementById("righthandOpen");
+	
+	point.style.left = x;
+	point.style.top = y;
+	point.style.zIndex = 100;
+	open.style.left = x;
+	open.style.top = y;
+	open.style.zIndex = 100;
+}
+
+map.on('dragstart', rightHandStick);
+map.on('dragend', rightHandActive);
+
+map.on('touchstart', rightHandStick);
+map.on('touchmove', rightHandStick);
+map.on('touchend', rightHandActive);
+
+map.on('rotatestart', rightHandStick);
+map.on('rotateend', rightHandActive);
+
+
+function rightHandStick() {
+	document.getElementById('righthandOpen').style.visibility = "visible";
+	document.getElementById('righthandPoint').style.visibility = "hidden";
+}
+
+function rightHandActive() {
+	document.getElementById('righthandOpen').style.visibility = "hidden";
+	document.getElementById('righthandPoint').style.visibility = "visible";
+}
+
+</script>
+</body>
+</html>
