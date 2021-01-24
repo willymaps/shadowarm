@@ -76,7 +76,7 @@ body {
 </div>
 <script>
 document.getElementById('mapHold').addEventListener("mousemove", imgMove);
-document.getElementById('mapHold').addEventListener("touchstart", imgTouch);
+document.getElementById('mapHold').addEventListener("touchmove", imgTouch);
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGlhbS1kYXZpcyIsImEiOiJja2tiYWtvbWcwMmtzMnBvajh3M2kxZGRuIn0.GeROaHKn2Gbvsg1e8buJEw';
 const map = new mapboxgl.Map({
