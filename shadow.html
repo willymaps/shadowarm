@@ -4,13 +4,15 @@
 <meta charset="utf-8" />
 <title>Shadow Arm</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" rel="stylesheet" />
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
 <style>
 body {
 	margin: 0;
 	padding: 0;
 }
+
+canvas { cursor: none; }
 
 #mapHold {
     position:relative;
@@ -78,12 +80,13 @@ body {
 document.getElementById('mapHold').addEventListener("mousemove", imgMove);
 document.getElementById('mapHold').addEventListener("touchmove", imgTouch);
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGlhbS1kYXZpcyIsImEiOiJja2tiYWtvbWcwMmtzMnBvajh3M2kxZGRuIn0.GeROaHKn2Gbvsg1e8buJEw';
+mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsbGlhbS1kYXZpcyIsImEiOiJja2prYmpvMncwM21pMnJtbjg0NnBjbWduIn0.9n0cpRnRO06AI7oydrZjbw';
 const map = new mapboxgl.Map({
 	container: 'map',
-	style: 'mapbox://styles/mapbox/outdoors-v11',
+	style: 'mapbox://styles/mapbox/streets-v11',
 	center: [48.1, -20.5],
-	zoom: 4.2
+	zoom: 2,
+	projection: 'globe'
 });
 
 function imgMove(e) {
